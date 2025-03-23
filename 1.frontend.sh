@@ -1,7 +1,7 @@
 #!/bin/bash
-$component=frontend
-$webserver=nginx
-
+component=frontend
+webserver=nginx
+source common.sh
 
 #changing the ec2-instance's name
 set-hostname $component
