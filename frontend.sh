@@ -1,12 +1,16 @@
 #!/bin/bash
 
 #changing the ec2-instance's name
-# set-hostname frontend-Server
-dnf install nginx -y
+set-hostname Frontend-Server
+
 #installing nginx webserver on our instance
-# echo "Installing nginx:"
-# dnf install nginx -y  
-# status 
+echo -n "Installing nginx:"
+dnf install nginx -y  &> /tmp/frontend.log
+if [ $? -eq 0 ]; then 
+        echo -e "\e[32m Sucess \e[0m"
+    else
+        echo -e "\e[31m Failure \e[0m"
+fi 
 
 # #starting and enbaling the nginx
 # echo -n "Starting the nginx:"
