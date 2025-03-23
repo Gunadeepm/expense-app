@@ -1,14 +1,12 @@
 #!/bin/bash
-component=frontend
-source common.sh
 
 #changing the ec2-instance's name
-set-hostname $component
+set-hostname frontend-server
 
 #installing nginx webserver on our instance
 echo -n "Installing nginx:"
 dnf install nginx -y   &>> /tmp/$component.log
-status
+status 
 
 # #starting and enbaling the nginx
 # echo -n "Starting the nginx:"
