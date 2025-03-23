@@ -4,8 +4,8 @@
 set-hostname frontend-server
 
 #installing nginx webserver on our instance
-echo -n "Installing nginx:"
-dnf install nginx -y   &>> /tmp/$component.log
+echo "Installing nginx:"
+dnf install nginx -y  
 # status 
 
 # #starting and enbaling the nginx
