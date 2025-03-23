@@ -7,7 +7,7 @@ set-hostname $component
 
 #installing nginx webserver on our instance
 echo -n "Installing nginx:"
-dnf install nginx -y &>> /tmp/$component.log
+dnf install nginx -y   &>> /tmp/$component.log
 status
 
 # #starting and enbaling the nginx
