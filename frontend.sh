@@ -5,7 +5,7 @@ set-hostname Frontend-Server
 
 #installing nginx webserver on our instance
 echo -n "Installing nginx:"
-dnf install nginx -y  &> /tmp/frontend.log
+dnf install nginx -y  
 if [ $? -eq 0 ]; then 
         echo -e "\e[32m Sucess \e[0m"
     else
