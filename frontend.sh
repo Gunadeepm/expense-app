@@ -1,11 +1,11 @@
 #!/bin/bash
 
 #changing the ec2-instance's name
-set-hostname frontend-Server
-
+# set-hostname frontend-Server
+dnf install nginx -y
 #installing nginx webserver on our instance
-echo "Installing nginx:"
-dnf install nginx -y  
+# echo "Installing nginx:"
+# dnf install nginx -y  
 # status 
 
 # #starting and enbaling the nginx
