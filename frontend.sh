@@ -6,7 +6,7 @@ source common.sh
 set -x #--> debug mode
 
 #changing the ec2-instance's name
-set-hostname Frontend-Server
+# set-hostname Frontend-Server
 
 #installing nginx webserver on our instance
 echo -n "Installing nginx:"
