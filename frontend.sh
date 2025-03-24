@@ -1,6 +1,6 @@
 #!/bin/bash
 component=frontend
-logs=/tmp/frontend.log
+logs=/tmp/frontend-$(date +"%F-%T").log
 webserver=nginx
 source common.sh
 
