@@ -1,4 +1,5 @@
 #!/bin/bash
+set -x 
 
 #changing the ec2-instance's name
 set-hostname Frontend-Server
