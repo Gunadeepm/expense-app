@@ -14,8 +14,8 @@ fi
 
 #starting and enbaling the nginx
 echo -n "Starting the nginx:"
-systemctl enable nginx  &>> /tmp/$component.log
-systemctl start nginx  &>> /tmp/$component.log
+systemctl enable nginx 
+systemctl start nginx 
 status
 
 #Removing the default/cached content of nginx
@@ -25,13 +25,13 @@ status
 
 #downloading the web-content for frontend
 echo -n "downloading the artifactory:"
-curl -o /tmp/$component.zip https://expense-web-app.s3.amazonaws.com/$component.zip &>> /tmp/$component.log
+curl -o /tmp/frontend.zip https://expense-web-app.s3.amazonaws.com/frontend.zip 
 status
 
 #extracting the frontend content 
-echo -n "Extracting the content for $component:"
+echo -n "Extracting the content for frontend:"
 cd /usr/share/nginx/html 
-unzip -o /tmp/$component.zip  &>> /tmp/$component.log
+unzip -o /tmp/frontend.zip  
 status
 
 #restarting the nginx
