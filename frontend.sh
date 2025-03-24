@@ -3,7 +3,7 @@ component=frontend
 logs=/tmp/frontend.log
 source common.sh
 
-set -x #--> debug mode
+# set -x #--> debugging
 
 #changing the ec2-instance's name
 # set-hostname Frontend-Server
