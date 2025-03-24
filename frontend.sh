@@ -37,7 +37,7 @@ unzip -o /tmp/$component.zip  &>> $logs
 status $?
 
 #restarting the nginx
-echo -n "Restarting the $webserver"
+echo -n "Restarting the $webserver:"
 systemctl enable $webserver  &>> $logs
 systemctl restart $webserver &>> $logs
 status $?
