@@ -1,6 +1,7 @@
 #!/bin/bash
 component=frontend
 logs=/tmp/frontend.log
+webserver=nginx
 source common.sh
 
 # set -x #--> debugging
@@ -9,34 +10,34 @@ source common.sh
 # set-hostname Frontend-Server
 
 #installing nginx webserver on our instance
-echo -n "Installing nginx:"
-dnf install nginx -y  &>> $logs
+echo -n "Installing $webserver:"
+dnf install $webserver -y  &>> $logs
 status $?
 
 #starting and enbaling the nginx
-echo -n "Starting the nginx:"
-systemctl enable nginx  &>> $logs
-systemctl start nginx   &>> $logs
+echo -n "Starting the $webserver:"
+systemctl enable $webserver  &>> $logs
+systemctl start $webserver   &>> $logs
 status $?
 
 #Removing the default/cached content of nginx
 echo -n "removing the bydefault content:"
-rm -rf /usr/share/nginx/html/*  
+rm -rf /usr/share/$webserver/html/*  
 status $?
 
 #downloading the web-content for frontend
 echo -n "downloading the artifactory:"
-curl -o /tmp/frontend.zip https://expense-web-app.s3.amazonaws.com/frontend.zip  &>> $logs
+curl -o /tmp/$component.zip https://expense-web-app.s3.amazonaws.com/$component.zip  &>> $logs
 status $?
 
 #extracting the frontend content 
-echo -n "Extracting the content for frontend:"
-cd /usr/share/nginx/html 
-unzip -o /tmp/frontend.zip  &>> $logs
+echo -n "Extracting the content for $component:"
+cd /usr/share/$webserver/html 
+unzip -o /tmp/$component.zip  &>> $logs
 status $?
 
 #restarting the nginx
-echo -n "Restarting the nginx"
-systemctl enable nginx  &>> $logs
-systemctl restart nginx &>> $logs
+echo -n "Restarting the $webserver"
+systemctl enable $webserver  &>> $logs
+systemctl restart $webserver &>> $logs
 status $?
