@@ -16,7 +16,7 @@ status $?
 
 # copying the reverse proxy file to its default location
 echo -n "Settingup the reverse proxy:"
-cp reverse proxy.conf /etc/nginx/default.d/expense.conf &>> $logs
+cp expense.conf /etc/nginx/default.d/ &>> $logs
 status $?
 
 #Removing the default/cached content of nginx
