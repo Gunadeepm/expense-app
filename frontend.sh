@@ -14,6 +14,11 @@ echo -n "Installing $webserver:"
 dnf install $webserver -y  &>> $logs
 status $?
 
+# copying the reverse proxy file to its default location
+echo -n "Settingup the reverse proxy:"
+cp reverse proxy /etc/nginx/default.d/expense.conf &>> $logs
+status $?
+
 #Removing the default/cached content of nginx
 echo -n "removing the bydefault content:"
 rm -rf /usr/share/$webserver/html/*  
