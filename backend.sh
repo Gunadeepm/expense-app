@@ -19,7 +19,7 @@ status $?
 
 # For configuring the application, we should create a user account for running the application. 
 echo -n "Creating an user_account: expense:-"
-useradd expense
+useradd expense &>>$logs
 status $?
 
 # we have to keep the application in a standard location
@@ -27,7 +27,23 @@ echo -n "Defining the application path:-"
 mkdir /app
 status $?
 
+# The code was already in a zip file stored in AWS S3, we now have to download it 
 echo -n "downloading the application code:-"
-curl -o /tmp/backend.zip https://expense-web-app.s3.amazonaws.com/backend.zip 
+curl -o /tmp/backend.zip https://expense-web-app.s3.amazonaws.com/backend.zip  &>>$logs
+status $?
+
+#After the above step, we have to switch to app directory to unzip and save the code.
+echo -n "Switching to app directory and Unzipping the file:-"
 cd /app 
-unzip /tmp/backend.zip
+unzip /tmp/backend.zip  &>>$logs
+status $?
+
+# To run and function accordingly, this application does need some libraries..that are mentioned in the package.json by developer
+echo -n "Installing the necessary dependencies:-"
+cd /app
+npm install   &>>$logs   #-->This will download and install all the packages needed for the application from package.json in a binary format under node_modules.
+status $?
+
+
+
+
