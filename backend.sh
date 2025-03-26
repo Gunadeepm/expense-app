@@ -1,6 +1,7 @@
 #!/bin/bash
 component=nodejs
 logs=/tmp/$component.log
+
 source common.sh
 # We're using nodejs-20 version as backend server, for this specfic project.
 # As, we're deploying code on rhel9 linux instances. The package manager in rhel9 by default install nodejs16, which is not desired for us.
@@ -23,7 +24,13 @@ status $?
 
 # For configuring the application, we should create a user account for running the application. 
 echo -n "Creating a service_account: expense:-"
-useradd expense &>> $logs
+id -u expense &>> $logs
+if [ $? -eq 0 ]; then 
+    echo -n "expense user already exists..skipping:"
+else
+    echo -n "Creating expense user:"
+    useradd expense
+fi
 status $?
 
 # we have to keep the application in a standard location
@@ -52,7 +59,7 @@ status $?
 # All the objects belongs to application should be owned by application
 echo -n "Granting the necessary permissions & ownership:-"
 chmod -R 775 /app 
-chown -R expense:expense /app
+chown -R expense:expense /app  &>> $logs
 status $?
 
 # For this application to work fully functional we need to load schema to the Database.
