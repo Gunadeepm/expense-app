@@ -1,10 +1,18 @@
 #!/bin/bash
 component=nodejs
+rootpasswd=$1
 logs=/tmp/$component.log
 
 source common.sh
 # We're using nodejs-20 version as backend server, for this specfic project.
 # As, we're deploying code on rhel9 linux instances. The package manager in rhel9 by default install nodejs16, which is not desired for us.
+
+# this below condition, validates that we should provide password for mysql as an argument
+if [ -z $1 ]; then 
+    echo -e "\e[31m mysql root user password \e[0m"
+    echo -e "Example usage: \n\t \e[35m sudo bash $0 password \e[0m"
+    exit 1
+fi
 
 # Here, we're disabling the default node(16v) repo and enable the needed version 20 repo.
 echo -n "Configuring the nodejs20 repo:-"
@@ -70,7 +78,7 @@ dnf install mysql-server -y &>> $logs
 status $?
 
 echo -n "Injecting the schema from the backend app:-"
-mysql -h <MYSQL-SERVER-IPADDRESS> -uroot -pExpenseApp@1 < /app/schema/backend.sql &>> $logs
+mysql -h <MYSQL-SERVER-IPADDRESS> -uroot -p$rootpasswd < /app/schema/backend.sql &>> $logs
 status $?
 
 echo -n "Loading and starting the service:-"
